@@ -5,36 +5,39 @@ public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private Cube _cubePrefab;
 
-    [SerializeField] private float scaleFactor = 0.5f;
+    [SerializeField] private float _scaleFactor = 0.5f;
+    [SerializeField] private float _splitChanceDecayFactor = 0.5f;
+    [SerializeField] private float _spawnOffsetRadius = 0.5f;
 
-    [SerializeField] private int minSpawn = 2;
-    [SerializeField] private int maxSpawn = 6;
+    [SerializeField] private int _minSpawnCount = 2;
+    [SerializeField] private int _maxSpawnCount = 6;
 
-    public List<Cube> SpawnCubes(Transform parent, float newChance)
+    private int _spawnCountAdd = 1;
+
+    public List<Cube> SpawnCubes(Transform parent, float currentChance)
     {
-        int count = Random.Range(minSpawn, maxSpawn + 1);
+        List<Cube> spawnedCubes = new();
 
-        List<Cube> result = new();
+        Vector3 newScale = parent.localScale * _scaleFactor;
 
-        Vector3 newScale = parent.localScale * scaleFactor;
+        int spawnCount = Random.Range(_minSpawnCount, _maxSpawnCount + _spawnCountAdd);
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-            Vector3 pos = parent.position + Random.onUnitSphere * 0.5f;
-            Quaternion rot = Random.rotation;
+            Vector3 spawnPosition = parent.position + Random.onUnitSphere * _spawnOffsetRadius;
+            Quaternion spawnRotation = Random.rotation;
 
-            Cube cube = Instantiate(_cubePrefab, pos, rot);
-
+            Cube cube = Instantiate(_cubePrefab, spawnPosition, spawnRotation);
             cube.transform.localScale = newScale;
 
-            cube.SetSplitChance(newChance);
+            cube.SetSplitChance(currentChance * _splitChanceDecayFactor);
 
             if (cube.TryGetComponent(out Renderer renderer))
                 renderer.material.color = Random.ColorHSV();
 
-            result.Add(cube);
+            spawnedCubes.Add(cube);
         }
 
-        return result;
+        return spawnedCubes;
     }
 }

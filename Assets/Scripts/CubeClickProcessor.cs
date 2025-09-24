@@ -4,27 +4,27 @@ public class CubeClickProcessor : MonoBehaviour
 {
     [SerializeField] private CubeSpawner _spawner;
 
-    [SerializeField] private ExplosionService _explosion;
+    [SerializeField] private ExplosionService _explosionService;
 
     [SerializeField] private CubeInputHandler _inputHandler;
 
     private void Awake()
     {
-        _inputHandler.OnCubeClicked += HandleCubeClick;
+        _inputHandler.CubeClicked += HandleCubeClick;
     }
 
     private void OnDestroy()
     {
-        _inputHandler.OnCubeClicked -= HandleCubeClick;
+        _inputHandler.CubeClicked -= HandleCubeClick;
     }
 
     private void HandleCubeClick(Cube cube)
     {
         if (Random.value <= cube.SplitChance)
         {
-            var spawned = _spawner.SpawnCubes(cube.transform, cube.SplitChance * 0.5f);
+            var spawnedCubes = _spawner.SpawnCubes(cube.transform, cube.SplitChance);
 
-            _explosion.Explode(spawned, cube.transform.position);
+            _explosionService.Explode(spawnedCubes, cube.transform.position);
         }
 
         Destroy(cube.gameObject);

@@ -3,11 +3,13 @@ using System;
 
 public class CubeInputHandler : MonoBehaviour
 {
-    public event Action<Cube> OnCubeClicked;
+    public event Action<Cube> CubeClicked;
+
+    [SerializeField] private InputReader _inputReader;
 
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!_inputReader.IsLeftMouseButtonDown()) return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -15,7 +17,7 @@ public class CubeInputHandler : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out Cube cube))
             {
-                OnCubeClicked?.Invoke(cube);
+                CubeClicked?.Invoke(cube);
             }
         }
     }

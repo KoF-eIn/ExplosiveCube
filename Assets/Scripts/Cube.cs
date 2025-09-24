@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
-    [SerializeField] public float SplitChance { get; private set; } = 1f;
+    [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
 
-    [SerializeField] public Rigidbody Rigidbody { get; private set; }
+    [field: SerializeField] public float SplitChance { get; private set; } = 1f;
 
     private void Awake()
     {

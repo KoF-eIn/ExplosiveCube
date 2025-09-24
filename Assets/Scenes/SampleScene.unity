@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e557cc5626fe4324499fcd7caae6e249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inputReader: {fileID: 664484541}
 --- !u!4 &18529853
 Transform:
   m_ObjectHideFlags: 0
@@ -203,6 +204,50 @@ Transform:
   - {fileID: 1517145575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &664484539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664484540}
+  - component: {fileID: 664484541}
+  m_Layer: 0
+  m_Name: InputHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &664484540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664484539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 671587698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664484541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664484539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08032a8a1d7568e4fa057f94583ca2dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &671587696
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +281,7 @@ Transform:
   - {fileID: 912348665}
   - {fileID: 18529853}
   - {fileID: 1150036864}
+  - {fileID: 664484540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &684969512
@@ -423,8 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2fa1ee1eeda214ab26b7ff22e80d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 300
-  radius: 2
+  _explosionForce: 300
+  _explosionRadius: 2
 --- !u!4 &912348665
 Transform:
   m_ObjectHideFlags: 0
@@ -562,9 +608,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubePrefab: {fileID: 7540542798242121265, guid: 75e772c4b93cb474dbf707a0b5b1313a, type: 3}
-  scaleFactor: 0.5
-  minSpawn: 2
-  maxSpawn: 6
+  _scaleFactor: 0.5
+  _splitChanceDecayFactor: 0.5
+  _spawnOffsetRadius: 0.5
+  _minSpawnCount: 2
+  _maxSpawnCount: 6
 --- !u!4 &1066343596
 Transform:
   m_ObjectHideFlags: 0
@@ -625,7 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawner: {fileID: 1066343595}
-  _explosion: {fileID: 912348664}
+  _explosionService: {fileID: 912348664}
   _inputHandler: {fileID: 18529852}
 --- !u!1 &1304369093
 GameObject:
