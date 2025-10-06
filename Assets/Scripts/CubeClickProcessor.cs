@@ -24,7 +24,11 @@ public class CubeClickProcessor : MonoBehaviour
         {
             var spawnedCubes = _spawner.SpawnCubes(cube.transform, cube.SplitChance);
 
-            _explosionService.Explode(spawnedCubes, cube.transform.position);
+            _explosionService.ExplodeLocal(spawnedCubes, cube.transform.position);
+        }
+        else
+        {
+            _explosionService.ExplodeArea(cube);
         }
 
         Destroy(cube.gameObject);
